@@ -385,7 +385,7 @@ const OpenBrowser = async (link, username, country) => {
   try {
     const noise = generateNoise();
     browser = await chromium.launch({
-      headless: false,
+      headless: true,
       proxy: {
         server: `${config.proxyHost}:${config.proxyPort}`,
         username,
