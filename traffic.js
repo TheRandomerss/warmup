@@ -5,10 +5,10 @@ import dotenv from "dotenv";
 import fs from "fs";
 
 // Load configuration from config.json
+dotenv.config();
 const config = JSON.parse(fs.readFileSync("./c.json", "utf-8"));
-
 const url = "https://game.zylox.link/";
-
+let wasSuccessful;
 const MIN_BOTS = 1; // Minimum number of bots per batch
 const MAX_BOTS = 1; // Maximum number of bots per batch
 
@@ -375,7 +375,6 @@ const humanInteraction = async (page) => {
 };
 
 const OpenBrowser = async (link, username, country) => {
-  dotenv.config();
   let browser = null;
   let context = null;
 
@@ -426,9 +425,16 @@ const OpenBrowser = async (link, username, country) => {
     await page.waitForTimeout(15000 + Math.random() * 25000);
 
     wasSuccessful = true;
-  } catch {
-    // Failure does not count toward success stats
+  } catch (err) {
+    console.error(`Session failed for ${username}:`, err);
   } finally {
+    try {
+      if (context) await context.close();
+      if (browser) await browser.close();
+      console.log(`Cleaned up session for ${username}`);
+    } catch (cleanupError) {
+      console.error(`Cleanup failed for ${username}:`, cleanupError);
+    }
     if (wasSuccessful) {
       totalSuccess += 1;
 
@@ -445,13 +451,6 @@ const OpenBrowser = async (link, username, country) => {
       }
 
       console.log("+++++++++++++++++++++++++\n");
-    }
-
-    try {
-      if (context) await context.close();
-      if (browser) await browser.close();
-    } catch {
-      // ignore cleanup errors
     }
   }
 };
@@ -480,4 +479,4 @@ const RunTasks = async () => {
 };
 
 // Start the bot
-RunTasks();
+RunTasks().catch(console.error);
