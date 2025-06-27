@@ -9,8 +9,8 @@ dotenv.config();
 const config = JSON.parse(fs.readFileSync("./c.json", "utf-8"));
 const url = "https://game.zylox.link/";
 let wasSuccessful;
-const MIN_BOTS = 1; // Minimum number of bots per batch
-const MAX_BOTS = 1; // Maximum number of bots per batch
+const MIN_BOTS = 10; // Minimum number of bots per batch
+const MAX_BOTS = 10; // Maximum number of bots per batch
 
 // Define the weighted locations for generating usernames
 const weightedLocations = {
