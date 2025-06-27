@@ -14,15 +14,31 @@ const MAX_BOTS = 1; // Maximum number of bots per batch
 
 // Define the weighted locations for generating usernames
 const weightedLocations = {
-  se: 10,
-  us: 30,
-  ua: 2,
-  at: 2,
-  fr: 4,
-  ca: 3,
-  uk: 10,
-  dk: 5,
+  kg: 2,     // Kyrgyzstan
+  sn: 2,     // Senegal
+  il: 3,     // Israel
+  gh: 2,     // Ghana
+  fr: 4,     // France (already existed, value preserved)
+  pf: 1,     // French Polynesia
+  gf: 1,     // French Guiana
+  mq: 1,     // Martinique
+  lv: 2,     // Latvia
+  bo: 2,     // Bolivia
+  th: 3,     // Thailand
+  vn: 3,     // Vietnam
+  gp: 1,     // Guadeloupe
+  ng: 2,     // Nigeria
+  kr: 3,     // Korea, Republic of
+  sg: 2,     // Singapore
+  mg: 1,     // Madagascar
+  re: 1,     // Reunion
+  ga: 1,     // Gabon
+  yt: 1,     // Mayotte
+  tn: 2,     // Tunisia
+  ci: 1,     // Cote D'Ivoire
+  ml: 1      // Mali
 };
+
 
 // Build weighted list of country codes
 const locations = Object.entries(weightedLocations).flatMap(([code, weight]) =>
